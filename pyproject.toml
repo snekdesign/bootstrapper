@@ -1,0 +1,75 @@
+[project]
+name = 'bootstrapper'
+
+[tool.basedpyright]
+strict = ['bootstrapper.py', 'scripts/config.py']
+typeCheckingMode = 'basic'
+
+[tool.pixi.project]
+channels = ['conda-forge']
+platforms = ['win-64']
+
+[tool.pixi.pypi-options]
+index-url = 'https://mirrors.cernet.edu.cn/pypi/web/simple'
+
+[tool.pixi.dependencies]
+pooch = '>=1.8.2'
+python-freethreading = '*'
+rich = '>=9.12.0'
+
+[tool.pixi.target.win.dependencies]
+colorama = '*'
+
+[tool.pixi.pypi-dependencies]
+pylnk3 = '*'
+
+[tool.pixi.pypi-dependencies.tqdm]
+git = 'ssh://git@github.com/klamike/tqdm'
+branch = 'mk/update_tqdmrich'
+
+[tool.pixi.environments.gil]
+features = ['gil']
+no-default-feature = true
+
+[tool.pixi.feature.gil.dependencies]
+pydantic-settings = '>=2.3.0'
+python = '>=3.12.0'
+py-rattler = '*'
+
+[tool.pixi.feature.gil.tasks.install]
+cmd = 'true'
+
+[tool.pixi.tasks.start]
+cmd = 'python bootstrapper.py'
+depends-on = ['install']
+
+[[tool.bootstrapper.win-64.files]]
+# update = 'https://www.nirsoft.net/pad/controlmymonitor.xml'
+url = 'https://www.nirsoft.net/utils/controlmymonitor.zip'
+exposed = { ControlMyMonitor = 'ControlMyMonitor.exe' }
+
+[[tool.bootstrapper.win-64.files]]
+url = 'https://mirrors.sdu.edu.cn/github-release/Chuyu-Team_Dism-Multi-language/v10.1.1002.2/Dism++10.1.1002.1B.zip'
+exposed = { 'Dism++' = 'Dism++x64.exe' }
+lnk = true
+
+[[tool.bootstrapper.win-64.files]]
+# update = 'https://www.voidtools.com/zh-cn/downloads/'
+url = 'https://www.voidtools.com/Everything-1.4.1.1026.x64.zip'
+exposed = { Everything = 'everything.exe' }
+lnk = true
+
+[[tool.bootstrapper.win-64.files]]
+url = 'https://mirror.nju.edu.cn/tdf/libreoffice/stable/25.2.0/win/x86_64/LibreOffice_25.2.0_Win_x86-64.msi'
+
+[[tool.bootstrapper.win-64.files]]
+# update = 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/t/TechPowerUp/NVCleanstall'
+url = 'https://us2-dl.techpowerup.com/files/NVCleanstall_1.18.0.exe'
+known-hash = '6bc0315852a915632393ef6a67ccfa5f5299f80e9aa4e258c9f3bd9268fda911'
+headers = { User-Agent = 'winget-cli WindowsPackageManager/1.9.25200 DesktopAppInstaller/Microsoft.DesktopAppInstaller v1.24.25200.0' }
+exposed = { NVCleanstall = 'NVCleanstall_1.18.0.exe' }
+
+[[tool.bootstrapper.win-64.files]]
+# update = 'https://api.github.com/repos/microsoft/PowerToys/releases/latest'
+url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.88.0-x64.exe'
+known-hash = 'c43742db7aa3f8b01fe7ae1da591f0342767afe5bbacb72f2968ce5e8ee1e3ac'
