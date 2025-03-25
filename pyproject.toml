@@ -9,9 +9,6 @@ typeCheckingMode = 'basic'
 channels = ['conda-forge']
 platforms = ['win-64']
 
-[tool.pixi.pypi-options]
-index-url = 'https://mirrors.cernet.edu.cn/pypi/web/simple'
-
 [tool.pixi.dependencies]
 pooch = '>=1.8.2'
 python-freethreading = '*'
@@ -60,7 +57,9 @@ exposed = { Everything = 'everything.exe' }
 lnk = true
 
 [[tool.bootstrapper.win-64.files]]
-url = 'https://mirror.nju.edu.cn/tdf/libreoffice/stable/25.2.0/win/x86_64/LibreOffice_25.2.0_Win_x86-64.msi'
+url = 'https://mirror.nju.edu.cn/tdf/libreoffice/stable/25.2.1/win/x86_64/LibreOffice_25.2.1_Win_x86-64.msi'
+# https://download.documentfoundation.org/libreoffice/stable/25.2.1/win/x86_64/LibreOffice_25.2.1_Win_x86-64.msi.mirrorlist
+known-hash = '5bdb0fc1edca34e79d920e31f6426f542d2d3532544b01c374a8b339c7a53762'
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/t/TechPowerUp/NVCleanstall'
@@ -71,5 +70,5 @@ exposed = { NVCleanstall = 'NVCleanstall_1.18.0.exe' }
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://api.github.com/repos/microsoft/PowerToys/releases/latest'
-url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.88.0-x64.exe'
-known-hash = 'c43742db7aa3f8b01fe7ae1da591f0342767afe5bbacb72f2968ce5e8ee1e3ac'
+url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.89.0-x64.exe'
+known-hash = 'e18ac8f9023e341cf7dad35367fb9dddb6565d83d8155dbcddb40ae8a24ae731'
