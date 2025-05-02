@@ -57,18 +57,18 @@ exposed = { Everything = 'everything.exe' }
 lnk = true
 
 [[tool.bootstrapper.win-64.files]]
-url = 'https://mirror.nju.edu.cn/tdf/libreoffice/stable/25.2.1/win/x86_64/LibreOffice_25.2.1_Win_x86-64.msi'
-# https://download.documentfoundation.org/libreoffice/stable/25.2.1/win/x86_64/LibreOffice_25.2.1_Win_x86-64.msi.mirrorlist
-known-hash = '5bdb0fc1edca34e79d920e31f6426f542d2d3532544b01c374a8b339c7a53762'
+url = 'https://mirror.nju.edu.cn/tdf/libreoffice/stable/25.2.3/win/x86_64/LibreOffice_25.2.3_Win_x86-64.msi'
+# https://download.documentfoundation.org/libreoffice/stable/25.2.3/win/x86_64/LibreOffice_25.2.3_Win_x86-64.msi.mirrorlist
+known-hash = '7434ebd983fa72057f5e64c58c86ef47d60005642de3d6c00a3122ae42fc1819'
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/t/TechPowerUp/NVCleanstall'
-url = 'https://us2-dl.techpowerup.com/files/NVCleanstall_1.18.0.exe'
-known-hash = '6bc0315852a915632393ef6a67ccfa5f5299f80e9aa4e258c9f3bd9268fda911'
+url = 'https://us2-dl.techpowerup.com/files/NVCleanstall_1.19.0.exe'
+known-hash = '9dd36ef956af927cf41fa441f91b329a7973e13965e4e7d70e6fa9c1df1cade6'
 headers = { User-Agent = 'winget-cli WindowsPackageManager/1.9.25200 DesktopAppInstaller/Microsoft.DesktopAppInstaller v1.24.25200.0' }
-exposed = { NVCleanstall = 'NVCleanstall_1.18.0.exe' }
+exposed = { NVCleanstall = 'NVCleanstall_1.19.0.exe' }
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://api.github.com/repos/microsoft/PowerToys/releases/latest'
-url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.89.0-x64.exe'
-known-hash = 'e18ac8f9023e341cf7dad35367fb9dddb6565d83d8155dbcddb40ae8a24ae731'
+url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.90.1-x64.exe'
+known-hash = '0df50c8896c73f0cc7c4e291e55350b87142824588da6ef6334a9065392f44f5'
