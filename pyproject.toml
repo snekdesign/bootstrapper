@@ -52,7 +52,7 @@ lnk = true
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://www.voidtools.com/zh-cn/downloads/'
-url = 'https://www.voidtools.com/Everything-1.4.1.1026.x64.zip'
+url = 'https://www.voidtools.com/Everything-1.4.1.1027.x64.zip'
 exposed = { Everything = 'everything.exe' }
 lnk = true
 
