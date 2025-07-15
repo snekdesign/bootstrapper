@@ -52,7 +52,7 @@ lnk = true
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://www.voidtools.com/zh-cn/downloads/'
-url = 'https://www.voidtools.com/Everything-1.4.1.1027.x64.zip'
+url = 'https://www.voidtools.com/Everything-1.4.1.1028.x64.zip'
 exposed = { Everything = 'everything.exe' }
 lnk = true
 
@@ -62,8 +62,3 @@ url = 'https://us2-dl.techpowerup.com/files/NVCleanstall_1.19.0.exe'
 known-hash = '9dd36ef956af927cf41fa441f91b329a7973e13965e4e7d70e6fa9c1df1cade6'
 headers = { User-Agent = 'winget-cli WindowsPackageManager/1.9.25200 DesktopAppInstaller/Microsoft.DesktopAppInstaller v1.24.25200.0' }
 exposed = { NVCleanstall = 'NVCleanstall_1.19.0.exe' }
-
-[[tool.bootstrapper.win-64.files]]
-# update = 'https://api.github.com/repos/microsoft/PowerToys/releases/latest'
-url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.91.1-x64.exe'
-known-hash = 'ec4bc3a8625775866b0ed4577ccf83e6ec7b1a0ad267379ddbaf4fe49c7b5bdd'
