@@ -53,7 +53,8 @@ lnk = true
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://www.voidtools.com/zh-cn/downloads/'
-url = 'https://www.voidtools.com/Everything-1.4.1.1028.x64.zip'
+url = 'https://www.voidtools.com/Everything-1.4.1.1029.x64.zip'
+known-hash = 'd23ae40115cd82fd78b247fb7bce3058be96c4c7df150f887d875958e15bf0a5'
 exposed = { Everything = 'everything.exe' }
 lnk = true
 
@@ -66,5 +67,5 @@ exposed = { NVCleanstall = 'NVCleanstall_1.19.0.exe' }
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://api.github.com/repos/microsoft/PowerToys/releases/latest'
-url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.92.1-x64.exe'
-known-hash = 'b5b263c259a5eb40d76e564dbdd095bf878593924e61761e8eb70b8351622e62'
+url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.95.0-x64.exe'
+known-hash = '967b0e6c47752702472a6c731cd4bb053d9216159a2b6becaa76466f3cd987d8'
