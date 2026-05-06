@@ -1,5 +1,6 @@
 [project]
 name = 'bootstrapper'
+version = '0.1.0'
 
 [tool.basedpyright]
 strict = ['bootstrapper.py', 'scripts/config.py']
@@ -41,11 +42,6 @@ cmd = 'python bootstrapper.py'
 depends-on = ['install']
 
 [[tool.bootstrapper.win-64.files]]
-# update = 'https://www.nirsoft.net/pad/controlmymonitor.xml'
-url = 'https://www.nirsoft.net/utils/controlmymonitor.zip'
-exposed = { ControlMyMonitor = 'ControlMyMonitor.exe' }
-
-[[tool.bootstrapper.win-64.files]]
 # update = 'https://api.github.com/repos/Chuyu-Team/Dism-Multi-language/releases/latest'
 url = 'https://dl.lancdn.com/landian/soft/dism/Dism++10.1.1002.1B.zip'
 exposed = { 'Dism++' = 'Dism++x64.exe' }
@@ -64,8 +60,3 @@ url = 'https://us2-dl.techpowerup.com/files/NVCleanstall_1.19.0.exe'
 known-hash = '9dd36ef956af927cf41fa441f91b329a7973e13965e4e7d70e6fa9c1df1cade6'
 headers = { User-Agent = 'winget-cli WindowsPackageManager/1.9.25200 DesktopAppInstaller/Microsoft.DesktopAppInstaller v1.24.25200.0' }
 exposed = { NVCleanstall = 'NVCleanstall_1.19.0.exe' }
-
-[[tool.bootstrapper.win-64.files]]
-# update = 'https://api.github.com/repos/microsoft/PowerToys/releases/latest'
-url = 'https://mirror.nju.edu.cn/github-release/microsoft/PowerToys/LatestRelease/PowerToysSetup-0.97.2-x64.exe'
-known-hash = 'd0316cce8a586ce060390830fd0e3ecc298498159eeaff2472a1bf3d2616a5e4'
