@@ -2,6 +2,7 @@ from collections.abc import Mapping
 import concurrent.futures
 import contextlib
 import ctypes
+import functools
 import logging
 import os
 import subprocess
@@ -9,12 +10,15 @@ import sys
 import threading
 from typing import Any
 from typing import BinaryIO
+from typing import Literal
+from typing import override
 from typing import Required
 from typing import TypedDict
 import urllib.parse
 import warnings
 
-import pooch  # pyright: ignore[reportMissingTypeStubs]
+import pooch.typing  # pyright: ignore[reportMissingTypeStubs]
+import pydantic_settings
 import pylnk3  # pyright: ignore[reportMissingTypeStubs]
 import rich.logging
 import tqdm.rich
@@ -25,27 +29,24 @@ _BIN = os.path.abspath(os.path.join(__file__, '../bin'))
 def main():
     _setup_logging()
     os.makedirs(_BIN, exist_ok=True)
-    proc = subprocess.run(
-        [
-            os.path.abspath(os.path.join(sys.prefix, '../gil/python.exe')),
-            os.path.abspath(os.path.join(__file__, '../scripts/config.py')),
-        ],
-        capture_output=True,
-        check=True,
-        text=True,
-    )
-    _main(**eval(proc.stdout))
+    pydantic_settings.CliApp.run(_Main)
 
 
-class _Downloader:
+class _Downloader(pooch.typing.Downloader):
     def __init__(self, headers: Mapping[str, str]):
-        self._headers = dict(headers)
+        self._impl = functools.partial(
+            pooch.HTTPDownloader,
+            headers=dict(headers),
+        )
 
+    @override
     def __call__(
         self,
         url: str,
-        output_file: str | BinaryIO,
-        pup: pooch.Pooch,
+        output_file: Any,
+        pooch: pooch.Pooch | None,
+        *,
+        check_only: bool | None = None,
     ):
         desc = os.path.basename(urllib.parse.urlparse(url).path)
         with contextlib.ExitStack() as stack:
@@ -53,11 +54,8 @@ class _Downloader:
                 output_file = stack.enter_context(open(output_file, 'w+b'))
             progressbar = _ProgressBar(output_file, desc)
             stack.callback(progressbar.close)
-            downloader = pooch.HTTPDownloader(
-                progressbar,
-                headers=self._headers,
-            )
-            return downloader(url, output_file, pup)
+            downloader = self._impl(progressbar)
+            return downloader(url, output_file, pooch)
 
 
 class _File(TypedDict, total=False):
@@ -66,6 +64,15 @@ class _File(TypedDict, total=False):
     headers: Mapping[str, str]
     exposed: Mapping[str, str]
     lnk: bool
+
+
+class _Main(pydantic_settings.BaseSettings):
+    platform: pydantic_settings.CliPositionalArg[
+        Literal['linux-64', 'osx-64', 'osx-arm64', 'win-64']
+    ]
+
+    def cli_cmd(self):
+        _main(**getattr(_Settings(), self.platform.replace('-', '_')))
 
 
 def _main(files: list[_File] = []):
@@ -86,6 +93,10 @@ def _main(files: list[_File] = []):
             for fut in prog:
                 if e := fut.exception():
                     _logger.error('', exc_info=e)
+
+
+class _PlatformSettings(TypedDict, total=False):
+    files: list[_File]
 
 
 class _ProgressBar(Any):
@@ -130,17 +141,18 @@ def _retrieve(
     exposed: Mapping[str, str] = {},
     lnk: bool = False,
 ):
-    files: list[str] = []
-    match pooch.retrieve(  # pyright: ignore[reportUnknownMemberType]
-        url,
-        known_hash,
-        processor=pooch.Unzip() if url.endswith('.zip') else None,
-        downloader=_Downloader(headers),
-    ):
-        case str(fname):
-            files.append(fname)
-        case list(fnames):  # pyright: ignore[reportUnknownVariableType]
-            files += fnames
+    downloader = _Downloader(headers)
+    if url.endswith('.zip'):
+        files = list(
+            pooch.retrieve(  # pyright: ignore[reportUnknownMemberType]
+                url,
+                known_hash,
+                processor=pooch.Unzip(),
+                downloader=downloader,
+            ),
+        )
+    else:
+        files = [pooch.retrieve(url, known_hash, downloader=downloader)]  # pyright: ignore[reportUnknownMemberType]
     for k, v in exposed.items():
         src = min([fname for fname in files if fname.endswith(v)], key=len)
         if lnk and sys.platform == 'win32':
@@ -169,6 +181,32 @@ def _retrieve(
                     os.link(src, dst)
                 except OSError:
                     os.symlink(src, dst)
+
+
+class _Settings(pydantic_settings.BaseSettings):
+    linux_64: _PlatformSettings = {}
+    osx_64: _PlatformSettings = {}
+    osx_arm64: _PlatformSettings = {}
+    win_64: _PlatformSettings = {}
+
+    model_config = pydantic_settings.SettingsConfigDict(
+        alias_generator=lambda x: x.replace('_', '-'),
+        pyproject_toml_table_header=('tool', 'bootstrapper'),
+    )
+
+    @classmethod
+    @override
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[pydantic_settings.BaseSettings],
+        init_settings: pydantic_settings.PydanticBaseSettingsSource,
+        env_settings: pydantic_settings.PydanticBaseSettingsSource,
+        dotenv_settings: pydantic_settings.PydanticBaseSettingsSource,
+        file_secret_settings: pydantic_settings.PydanticBaseSettingsSource,
+    ):
+        return (
+            pydantic_settings.PyprojectTomlConfigSettingsSource(settings_cls),
+        )
 
 
 def _setup_logging():

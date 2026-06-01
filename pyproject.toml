@@ -3,43 +3,29 @@ name = 'bootstrapper'
 version = '0.1.0'
 
 [tool.basedpyright]
-strict = ['bootstrapper.py', 'scripts/config.py']
-typeCheckingMode = 'basic'
+reportUnnecessaryTypeIgnoreComment = 'warning'
+strict = ['bootstrapper.py']
+typeCheckingMode = 'off'
 
 [tool.pixi.workspace]
 channels = ['conda-forge']
 platforms = ['win-64']
 
 [tool.pixi.dependencies]
-pooch = '>=1.8.2'
-python-freethreading = '*'
-rich = '>=9.12.0'
+pooch = '>=1.9.0'
+pydantic-settings = '>=2.12.0'
+python-freethreading = '>=3.14.0'
+rich = '>=14.2.0'
 
 [tool.pixi.target.win.dependencies]
 colorama = '*'
 
 [tool.pixi.pypi-dependencies]
 pylnk3 = '*'
+tqdm = { git = 'https://github.com/klamike/tqdm', branch = 'mk/update_tqdmrich' }
 
-[tool.pixi.pypi-dependencies.tqdm]
-git = 'ssh://git@github.com/klamike/tqdm'
-branch = 'mk/update_tqdmrich'
-
-[tool.pixi.environments.gil]
-features = ['gil']
-no-default-feature = true
-
-[tool.pixi.feature.gil.dependencies]
-pydantic-settings = '>=2.3.0'
-python = '>=3.12.0'
-py-rattler = '*'
-
-[tool.pixi.feature.gil.tasks.install]
-cmd = 'true'
-
-[tool.pixi.tasks.start]
-cmd = 'python bootstrapper.py'
-depends-on = ['install']
+[tool.pixi.tasks]
+bootstrap = 'python bootstrapper.py {{ pixi.platform }}'
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://api.github.com/repos/Chuyu-Team/Dism-Multi-language/releases/latest'
