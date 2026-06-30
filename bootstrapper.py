@@ -151,6 +151,15 @@ def _retrieve(
                 downloader=downloader,
             ),
         )
+    elif url.endswith('.tar.zst'):
+        files = list(
+            pooch.retrieve(  # pyright: ignore[reportUnknownMemberType]
+                url,
+                known_hash,
+                processor=pooch.Untar(),
+                downloader=downloader,
+            ),
+        )
     else:
         files = [pooch.retrieve(url, known_hash, downloader=downloader)]  # pyright: ignore[reportUnknownMemberType]
     for k, v in exposed.items():

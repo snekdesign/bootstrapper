@@ -34,6 +34,12 @@ exposed = { 'Dism++' = 'Dism++x64.exe' }
 lnk = true
 
 [[tool.bootstrapper.win-64.files]]
+# update = 'https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-dnscrypt-proxy'
+url = 'https://mirror.nju.edu.cn/msys2/mingw/ucrt64/mingw-w64-ucrt-x86_64-dnscrypt-proxy-2.1.16-1-any.pkg.tar.zst'
+known-hash = 'a04fc095ef15315cf55726f5af1b498428a3629d6a949ddb808e2e3c0c35c368'
+exposed = { dnscrypt-proxy = 'dnscrypt-proxy.exe' }
+
+[[tool.bootstrapper.win-64.files]]
 # update = 'https://www.voidtools.com/zh-cn/downloads/'
 url = 'https://www.voidtools.com/Everything-1.4.1.1032.x64.zip'
 known-hash = '698df475ec44e638f66f1b6a32d28fea613cec78d3b6310e6abe53431eeb940c'
@@ -42,7 +48,7 @@ lnk = true
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/t/TechPowerUp/NVCleanstall'
-url = 'https://us2-dl.techpowerup.com/files/NVCleanstall_1.19.0.exe'
+url = 'https://closest-dl.techpowerup.com/files/NVCleanstall_1.19.0.exe'
 known-hash = '9dd36ef956af927cf41fa441f91b329a7973e13965e4e7d70e6fa9c1df1cade6'
 headers = { User-Agent = 'winget-cli WindowsPackageManager/1.9.25200 DesktopAppInstaller/Microsoft.DesktopAppInstaller v1.24.25200.0' }
 exposed = { NVCleanstall = 'NVCleanstall_1.19.0.exe' }
