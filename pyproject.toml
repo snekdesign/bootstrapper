@@ -29,14 +29,14 @@ bootstrap = 'python bootstrapper.py {{ pixi.platform }}'
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://api.github.com/repos/Chuyu-Team/Dism-Multi-language/releases/latest'
-url = 'https://dl.lancdn.com/landian/soft/dism/Dism++10.1.1002.1B.zip'
+url = 'https://mirrors.sdu.edu.cn/github-release/Chuyu-Team_Dism-Multi-language/v10.1.1002.2/Dism++10.1.1002.1B.zip'
 exposed = { 'Dism++' = 'Dism++x64.exe' }
 lnk = true
 
 [[tool.bootstrapper.win-64.files]]
 # update = 'https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-dnscrypt-proxy'
-url = 'https://mirror.nju.edu.cn/msys2/mingw/ucrt64/mingw-w64-ucrt-x86_64-dnscrypt-proxy-2.1.16-1-any.pkg.tar.zst'
-known-hash = 'a04fc095ef15315cf55726f5af1b498428a3629d6a949ddb808e2e3c0c35c368'
+url = 'https://mirror.nju.edu.cn/msys2/mingw/ucrt64/mingw-w64-ucrt-x86_64-dnscrypt-proxy-2.1.17-1-any.pkg.tar.zst'
+known-hash = '1c54dd83832368037cc4ac5df7239fb9f289fca7b9f82563983d0004dd5c1092'
 exposed = { dnscrypt-proxy = 'dnscrypt-proxy.exe' }
 
 [[tool.bootstrapper.win-64.files]]
