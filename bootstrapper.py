@@ -233,6 +233,8 @@ _logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
     if sys.platform == 'win32' and not ctypes.windll.shell32.IsUserAnAdmin():
-        subprocess.run(['sudo', '-E', sys.executable, __file__], check=True)
+        args = sys.argv.copy()
+        args[:1] = ['sudo', '-E', sys.executable, __file__]
+        subprocess.run(args, check=True)
     else:
         main()
